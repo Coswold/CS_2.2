@@ -61,9 +61,13 @@ class Graph:
         the given key and return the vertex
         """
         # TODO increment the number of vertices
+        self.numVertices += 1
         # TODO create a new vertex
+        vert = Vertex(key)
         # TODO add the new vertex to the vertex list
+        self.vertList[key] = vert
         # TODO return the new vertex
+        return vert
 
     def getVertex(self, n):
         """return the vertex if it exists"""
