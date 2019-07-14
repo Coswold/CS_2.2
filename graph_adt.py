@@ -25,12 +25,14 @@ class Vertex(object):
 
     def __str__(self):
         """output the list of neighbors of this vertex"""
-        return str(self.id) + " adjancent to " +
-        str([x.id for x in self.neighbors])
+        return str(self.id) + " adjancent to " + str([x.id for x in self.neighbors])
 
     def getNeighbors(self):
         """return the neighbors of this vertex"""
-        return self.neighbors
+        n = []
+        for key, value in self.neighbors.items():
+            n.append(key)
+        return n
 
     def getId(self):
         """return the id of this vertex"""
@@ -121,4 +123,4 @@ if __name__ == "__main__":
     print("The edges are: ")
     for v in g:
         for w in v.getNeighbors():
-print("( %s , %s )" % (v.getId(), w.getId()))
+            print("( %s , %s )" % (v.getId(), w.getId()))
