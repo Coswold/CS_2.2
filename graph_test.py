@@ -36,5 +36,39 @@ class VertexTest(unittest.TestCase):
 class GraphTest(unittest.TestCase):
 
     def test_init(self):
-        pass
+        graph = Graph()
+        graph.numVertices = 0
 
+    def test_add_vertex(self):
+        graph = Graph()
+        assert graph.addVertex('A') == graph.vertList['A']
+        assert graph.numVertices == 1
+        graph.addVertex('B')
+        assert graph.numVertices == 2
+
+    def test_get_vertex(self):
+        graph = Graph()
+        graph.addVertex('A')
+        graph.addVertex('B')
+        assert graph.getVertex('A') is graph.vertList['A']
+        assert graph.getVertex('B') is graph.vertList['B']
+        assert graph.getVertex('C') is None
+
+    def test_add_edge(self):
+        graph = Graph()
+        graph.addVertex('A')
+        graph.addVertex('B')
+        graph.addEdge('A', 'B', 8)
+        assert graph.getVertex('A').getEdgeWeight('B') == 8
+        graph.addEdge('B', 'C', 5)
+        assert graph.getVertex('B').getEdgeWeight('C') == 5
+        graph.addEdge('D', 'E', 10)
+        assert graph.getVertex('D').getEdgeWeight('E') == 10
+
+    def test_get_cost(self):
+        graph = Graph()
+        graph.addVertex('A')
+        graph.addVertex('B')
+        graph.addEdge('A', 'B', 8)
+        assert graph.getCost('A', 'B') == 8
+        assert graph.getCost('A', 'C') is None

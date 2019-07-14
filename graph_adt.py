@@ -62,28 +62,33 @@ class Graph:
         """add a new vertex object to the graph with
         the given key and return the vertex
         """
-        # TODO increment the number of vertices
         self.numVertices += 1
-        # TODO create a new vertex
         vert = Vertex(key)
-        # TODO add the new vertex to the vertex list
         self.vertList[key] = vert
-        # TODO return the new vertex
         return vert
 
     def getVertex(self, n):
         """return the vertex if it exists"""
-        # TODO return the vertex if it is in the graph
+        if n in self.vertList:
+            return self.vertList[n]
+        else:
+            return None
 
     def addEdge(self, f, t, cost=0):
         """add an edge from vertex f to vertex t with a cost
         """
-        # TODO if either vertex is not in the graph,
-        # add it - or return an error (choice is up to you).
-        # TODO if both vertices in the graph, add the
-        # edge by making t a neighbor of f
-        # and using the addNeighbor method of the Vertex class.
-        # Hint: the vertex f is stored in self.vertList[f].
+        if f not in self.vertList:
+            self.addVertex(f)
+        if t not in self.vertList:
+            self.addVertex(t)
+        self.vertList[f].addNeighbor(t, cost)
+
+    def getCost(self, f, t):
+        """return the cost of going from f to t"""
+        if f not in self.vertList or t not in self.vertList:
+            return None
+        else:
+            return self.vertList[f].getEdgeWeight(t)
 
     def getVertices(self):
         """return all the vertices in the graph"""
@@ -91,7 +96,7 @@ class Graph:
 
     def __iter__(self):
         """iterate over the vertex objects in the
-        graph, to use sytax: for v in g
+        graph, to use syntax: for v in g
         """
         return iter(self.vertList.values())
 
