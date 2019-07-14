@@ -59,11 +59,11 @@ class GraphTest(unittest.TestCase):
         graph.addVertex('A')
         graph.addVertex('B')
         graph.addEdge('A', 'B', 8)
-        assert graph.getVertex('A').getEdgeWeight('B') == 8
+        assert graph.getVertex('A').getEdgeWeight(graph.getVertex('B')) == 8
         graph.addEdge('B', 'C', 5)
-        assert graph.getVertex('B').getEdgeWeight('C') == 5
+        assert graph.getVertex('B').getEdgeWeight(graph.getVertex('C')) == 5
         graph.addEdge('D', 'E', 10)
-        assert graph.getVertex('D').getEdgeWeight('E') == 10
+        assert graph.getVertex('D').getEdgeWeight(graph.getVertex('E')) == 10
 
     def test_get_cost(self):
         graph = Graph()

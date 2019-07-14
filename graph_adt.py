@@ -89,7 +89,7 @@ class Graph:
         if f not in self.vertList or t not in self.vertList:
             return None
         else:
-            return self.vertList[f].getEdgeWeight(t)
+            return self.vertList[f].getEdgeWeight(self.getVertex(t))
 
     def getVertices(self):
         """return all the vertices in the graph"""
