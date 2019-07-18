@@ -15,7 +15,10 @@ def buildGraph(txt):
         g.addVertex(vert)
     i = 2
     while i < len(txt):
-        g.addEdge(txt[i][1], txt[i][3])
+        edge = txt[i].replace('(', '')
+        edge = edge.replace(')', '')
+        edge = edge.split(',')
+        g.addEdge(edge[0], edge[1], edge[2])
         i += 1
 
     return g
