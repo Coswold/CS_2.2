@@ -13,12 +13,28 @@ def buildGraph(txt):
     verts = verts.split(',')
     for vert in verts:
         g.addVertex(vert)
+    i = 2
+    while i < len(txt):
+        g.addEdge(txt[i][1], txt[i][3])
+        i += 1
 
     return g
+
+def printData(g):
+    print('# Vertices: {}'.format(g.numVertices))
+    print("The vertices are: ", "\n")
+    for vert in g.getVertices():
+        print(vert)
+    print("\n")
+
+    print("The edges are: ", "\n")
+    for v in g:
+        for w in v.getNeighbors():
+            print("( %s , %s )" % (v.getId(), w.getId()))
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         txt = read(sys.argv[1])
-        print(txt)
         g = buildGraph(txt)
+        printData(g)
