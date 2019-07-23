@@ -20,7 +20,8 @@ class VertexTest(unittest.TestCase):
         vertex = Vertex(1)
         vertex.addNeighbor(3)
         vertex.addNeighbor(8)
-        assert vertex.getNeighbors() == [8, 3]
+        assert 8 in vertex.getNeighbors()
+        assert 3 in vertex.getNeighbors()
 
     def test_get_id(self):
         vertex = Vertex(1)
@@ -72,3 +73,15 @@ class GraphTest(unittest.TestCase):
         graph.addEdge('A', 'B', 8)
         assert graph.getCost('A', 'B') == 8
         assert graph.getCost('A', 'C') is None
+
+    def test_BFS(self):
+        g =Graph()
+        g.addVertex('A')
+        g.addVertex('B')
+        g.addVertex('C')
+        g.addVertex('D')
+        g.addVertex('E')
+        g.addEdge('A', 'B', 2)
+        g.addEdge('B', 'C', 6)
+        print(g.BFS('A', 'C'))
+        assert g.BFS('A', 'C') == ['A', 'B', 'C']

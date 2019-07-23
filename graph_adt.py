@@ -14,6 +14,7 @@ class Vertex(object):
         value = weight of edge between self and neighbor.
         """
         self.id = vertex
+        self.visited = False
         self.neighbors = {}
 
     def addNeighbor(self, vertex, weight=0):
@@ -95,6 +96,18 @@ class Graph:
         """return all the vertices in the graph"""
         return self.vertList.keys()
 
+    def BFS(self, f, t, q=[]):
+        neighbors = self.getVertex(f).getNeighbors()
+        q.append(f)
+        if len(neighbors) > 0:
+            for neighbor in neighbors:
+                if neighbor.getId() == t:
+                    print(q)
+                    return q
+                self.BFS(neighbor.getId(), t, q)
+        else:
+            raise Exception("Path not found")
+
     def __iter__(self):
         """iterate over the vertex objects in the
         graph, to use syntax: for v in g
@@ -136,6 +149,9 @@ if __name__ == "__main__":
     g.addEdge("Friend 7", "Friend 8")
     g.addEdge("Friend 8", "Friend 9")
     g.addEdge("Friend 9", "Friend 10")
+
+    # BFS test
+    print(g.BFS('Friend 4', 'Friend 8'))
 
     # Challenge 1: Output the vertices & edges
     # Print vertices
