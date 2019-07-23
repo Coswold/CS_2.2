@@ -1,27 +1,6 @@
 import sys
 from graph_adt import Graph
-
-def read(txt):
-    f = open(txt, "r")
-    txt = f.read().split('\n')
-    txt.pop()
-    return txt
-
-def buildGraph(txt):
-    g = Graph()
-    verts = txt[1]
-    verts = verts.split(',')
-    for vert in verts:
-        g.addVertex(vert)
-    i = 2
-    while i < len(txt):
-        edge = txt[i].replace('(', '')
-        edge = edge.replace(')', '')
-        edge = edge.split(',')
-        g.addEdge(edge[0], edge[1], edge[2])
-        i += 1
-
-    return g
+from file_reader import read
 
 def printData(g):
     print('# Vertices: {}'.format(g.numVertices))
@@ -38,6 +17,7 @@ def printData(g):
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        txt = read(sys.argv[1])
-        g = buildGraph(txt)
+        g = read(sys.argv[1])
         printData(g)
+    else:
+        raise Exception("Please include text file")
