@@ -96,15 +96,20 @@ class Graph:
         """return all the vertices in the graph"""
         return self.vertList.keys()
 
-    def BFS(self, f, t, q=[]):
+    def FSP(self, f, t):
+        short_path = []
+        self.BFS(f, t, short_path.append)
+        return short_path
+
+    def BFS(self, f, t, visit, q=[]):
         neighbors = self.getVertex(f).getNeighbors()
         q.append(f)
         if len(neighbors) > 0:
             for neighbor in neighbors:
                 if neighbor.getId() == t:
-                    print(q)
-                    return q
-                self.BFS(neighbor.getId(), t, q)
+                    visit(q)
+                    return
+                self.BFS(neighbor.getId(), t, visit, q)
         else:
             raise Exception("Path not found")
 
@@ -149,9 +154,10 @@ if __name__ == "__main__":
     g.addEdge("Friend 7", "Friend 8")
     g.addEdge("Friend 8", "Friend 9")
     g.addEdge("Friend 9", "Friend 10")
+    g.addEdge("Friend 1", "Friend 8")
 
     # BFS test
-    print(g.BFS('Friend 4', 'Friend 8'))
+    print(g.FSP('Friend 1', 'Friend 8'))
 
     # Challenge 1: Output the vertices & edges
     # Print vertices
