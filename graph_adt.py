@@ -98,20 +98,21 @@ class Graph:
 
     def FSP(self, f, t):
         short_path = []
-        self.BFS(f, t, short_path.append)
         return short_path
 
-    def BFS(self, f, t, visit, q=[]):
-        neighbors = self.getVertex(f).getNeighbors()
-        q.append(f)
-        if len(neighbors) > 0:
+    def BFS(self, f):
+        q = []
+        visited = []
+        q.append(self.getVertex(f))
+        while len(q) > 0:
+            v = q.pop(0)
+            neighbors = v.getNeighbors()
             for neighbor in neighbors:
-                if neighbor.getId() == t:
-                    visit(q)
-                    return
-                self.BFS(neighbor.getId(), t, visit, q)
-        else:
-            raise Exception("Path not found")
+                if neighbor.visited == False:
+                    q.append(neighbor)
+                    visited.append(neighbor.id)
+                    neighbor.visited = True
+        return visited
 
     def __iter__(self):
         """iterate over the vertex objects in the
@@ -151,13 +152,12 @@ if __name__ == "__main__":
     g.addEdge("Friend 4", "Friend 5")
     g.addEdge("Friend 5", "Friend 6")
     g.addEdge("Friend 6", "Friend 7")
-    g.addEdge("Friend 7", "Friend 8")
     g.addEdge("Friend 8", "Friend 9")
     g.addEdge("Friend 9", "Friend 10")
     g.addEdge("Friend 1", "Friend 8")
 
     # BFS test
-    print(g.FSP('Friend 1', 'Friend 8'))
+    print(g.BFS('Friend 1'))
 
     # Challenge 1: Output the vertices & edges
     # Print vertices
