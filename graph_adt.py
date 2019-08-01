@@ -97,8 +97,20 @@ class Graph:
         return self.vertList.keys()
 
     def FSP(self, f, t):
-        short_path = []
-        return short_path
+        stack = []
+        path = []
+        stack.append(self.getVertex(f))
+        while len(stack) > 0:
+            for neighbor in stack[-1].getNeighbors():
+                print(neighbor)
+                if neighbor.visited != True:
+                    stack.append(neighbor)
+                if neighbor.id == t:
+                    path = stack
+            stack[-1].visited = True
+            stack.pop()
+
+        return path
 
     def BFS(self, f):
         q = []
@@ -108,6 +120,7 @@ class Graph:
             v = q.pop(0)
             neighbors = v.getNeighbors()
             for neighbor in neighbors:
+                print(neighbor)
                 if neighbor.visited == False:
                     q.append(neighbor)
                     visited.append(neighbor.id)
@@ -157,7 +170,7 @@ if __name__ == "__main__":
     g.addEdge("Friend 1", "Friend 8")
 
     # BFS test
-    print(g.BFS('Friend 1'))
+    print(g.FSP('Friend 1', 'Friend 5'))
 
     # Challenge 1: Output the vertices & edges
     # Print vertices
